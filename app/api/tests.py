@@ -1,17 +1,14 @@
-from urllib import request
-from django.test import TestCase
 from django.contrib.auth.models import User
-
-# Create your tests here.
-from rest_framework.test import APIRequestFactory
-from rest_framework.test import force_authenticate
-
-factory = APIRequestFactory()
-user = User.objects.get(
-    username='test')
+from rest_framework.test import APITestCase
 
 
-def test_response(self):
-    request = factory.get('/users/')
-    force_authenticate(request, user=user)
-    response = view(request)
+class Testing(APITestCase):
+    def setUp(self):
+        user = User.objects.create_superuser(
+            username='test', email='test@email.com', password='password')
+        user = User.objects.get(username='test')
+        self.client.force_authenticate(user=user)
+
+    def test_responds_with_list_of_users(self):
+        response = self.client.get('http://testserver/users/')
+        self.assertEquals(200, response.status_code)
