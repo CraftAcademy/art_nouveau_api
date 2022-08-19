@@ -2,7 +2,7 @@ import factory
 from api.models import Project
 
 
-class ProjectFactory(factory.Factory):
+class ProjectFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Project
     title = "Foo"
