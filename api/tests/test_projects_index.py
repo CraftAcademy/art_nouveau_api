@@ -12,3 +12,4 @@ class ProjectsIndexTest(APITestCase):
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['title'], 'Foo')
         self.assertEqual(response.data[0]['description'], 'Bar')
+        self.assertTrue(response.data[0]['id'])
