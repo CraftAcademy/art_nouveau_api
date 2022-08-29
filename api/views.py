@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from api.serializers import ProjectSerializer, UserSerializer, GroupSerializer
 from api.models import Project
+from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -28,3 +29,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = ProjectSerializer(queryset, many = True)
+        return Response({'projects': serializer.data}) 
