@@ -14,18 +14,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
-    def get_permissions(self):
-        permission_classes = []
-        if self.action == 'list':
-            permission_classes = [permissions.IsAuthenticated]
-        return [permission() for permission in permission_classes]
-
-    # def create(self, request):
-    #     user = User.objects.create(**request.data)
-    #     # breakpoint()
-    #     # return Response({'message': "Don't use Django"}, status=201)
-    #     super
-
 
 class GroupViewSet(viewsets.ModelViewSet):
     """
