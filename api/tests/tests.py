@@ -1,11 +1,13 @@
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
+from .factories.user import UserFactory
 
 
 class Testing(APITestCase):
     def setUp(self):
-        user = User.objects.create_superuser(
-            username='test', email='test@email.com', password='password')
+        # user = User.objects.create_superuser(
+        #     username='test', email='test@email.com', password='password')
+        UserFactory(username='test')
         user = User.objects.get(username='test')
         self.client.force_authenticate(user=user)
 
