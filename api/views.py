@@ -31,7 +31,16 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-    def list(self, request):
+    def get_permissions(self):
+        permission_classes = [permissions.AllowAny]
+        if not self.action == 'list':
+            permission_classes = [permissions.IsAuthenticated]
+        
+        return [permission() for permission in permission_classes]
+
+    def list(self):
+        breakpoint()
         queryset = self.get_queryset()
         serializer = ProjectSerializer(queryset, many=True)
         return Response({'projects': serializer.data})
+
